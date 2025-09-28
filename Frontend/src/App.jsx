@@ -1,34 +1,41 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import React from 'react'
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
 
-function App() {
-  const [count, setCount] = useState(0)
+import SignIn from './pages/SignIn';
+import SignUp from "./pages/SignUp";
+import CartPage from "./pages/CartPage"
+import Checkout from "./pages/Checkout"
+import Contact from './pages/Contact';
+import DetailsPage from "./pages/DetailsPage";
+import AboutPage from "./pages/AboutPage"
+import Homepage from './pages/Homepage';
+import SplashScreen from './pages/SplashScreen';
+import Products from './pages/Products'
+import AdminDashboard from './pages/AdminPages/AdminDashboard';
+import UpdateProducts from './pages/AdminPages/UpdateProducts';
+import AddProduct from './pages/AdminPages/AddProduct';
+import Category from './pages/AdminPages/Category'; 
 
+const App = () => {
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+    <BrowserRouter>
+      <Routes>
+        <Route path='/' element={<Homepage/>}/>
+        <Route path='SignUp' element={<SignUp/>}/>
+        <Route path='SignIn' element={<SignIn/>}/>
+        <Route path='Splash' element={<SplashScreen/>}/>
+        <Route path='Products' element={<Products/>}/>
+        <Route path='About' element={<AboutPage/>}/>
+        <Route path='details' element={<DetailsPage/>}/>
+        <Route path='cart' element={<CartPage/>}/>
+        <Route path='checkout' element={<Checkout/>}/>
+        <Route path='' element={<Contact/>}/>
+        <Route path='' element={<AddProduct/>}/>
+        <Route path='' element={<AdminDashboard/>}/>
+        <Route path='' element={<Category/>}/>
+        <Route path='' element={<UpdateProducts/>}/>
+      </Routes>   
+    </BrowserRouter>
   )
 }
 
