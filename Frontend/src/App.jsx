@@ -22,17 +22,17 @@ const App = () => {
         <Route path='/' element={<Homepage/>}/>
         <Route path='SignUp' element={<SignUp/>}/>
         <Route path='SignIn' element={<SignIn/>}/>
-        <Route path='Splash' element={<SplashScreen/>}/>
-        <Route path='Products' element={<Products/>}/>
-        <Route path='About' element={<AboutPage/>}/>
-        <Route path='details' element={<DetailsPage/>}/>
-        <Route path='cart' element={<CartPage/>}/>
-        <Route path='checkout' element={<Checkout/>}/>
-        <Route path='contact' element={<Contact/>}/>
-        <Route path='add' element={<AddProduct/>}/>
-        <Route path='admin' element={<AdminDashboard/>}/>
-        <Route path='category' element={<Category/>}/>
-        <Route path='update' element={<UpdateProducts/>}/>
+        <Route path='/Splash' element={<SplashScreen/>}/>
+        <Route path='/Products' element={<Products/>}/>
+        <Route path='/about' element={<AboutPage/>}/>
+        <Route path='/details' element={<DetailsPage/>}/>
+        <Route path='/cart' element={<CartPage/>}/>
+        <Route path='/checkout' element={<Checkout/>}/>
+        <Route path='/contact' element={<Contact/>}/>
+        <Route path='/add' element={<AddProduct/>}/>
+        <Route path='/admin' element={<AdminDashboard/>}/>
+        <Route path='/category' element={<Category/>}/>
+        <Route path='/update' element={<UpdateProducts/>}/>
       </Routes>   
     </BrowserRouter>
   )
