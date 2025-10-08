@@ -1,5 +1,6 @@
 import React from 'react'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
+
 import SignIn from './pages/SignIn';
 import SignUp from "./pages/SignUp";
 import Contact from './pages/Contact';
@@ -8,10 +9,13 @@ import AboutPage from "./pages/AboutPage"
 import Homepage from './pages/Homepage';
 import SplashScreen from './pages/SplashScreen';
 import Products from './pages/Products'
-import Brochures from './pages/BrochurePage';
+import BrochurePage from './pages/BrochurePage';
 
-import CartPage from "./pages/UserPages/CartPage"
-import Checkout from "./pages/UserPages/Checkout"
+import CartPage from "./pages/UserPages/CartPage";
+import Checkout from "./pages/UserPages/Checkout";
+import ProfilePage from "./pages/UserPages/ProfilePage";
+import UserOrders from "./pages/UserPages/UserOrders";
+import SingleOrder from "./pages/UserPages/SingleOrder";
 
 import AdminDashboard from './pages/AdminPages/AdminDashboard';
 import UpdateProducts from './pages/AdminPages/UpdateProducts';
@@ -21,9 +25,9 @@ import AllOrders from './pages/AdminPages/AllOrders';
 import Banners from './pages/AdminPages/Banners';
 import AllProducts from './pages/AdminPages/AllProducts';
 import OrderDetails from './pages/AdminPages/OrderDetails';
-import BrochurePage from './pages/BrochurePage';
-
-
+import AllEnquiries from './pages/AdminPages/AllEnquiries';
+import Brochures from './pages/AdminPages/Brochures';
+import EnquiryDetails from './pages/AdminPages/EnquiryDetails';
 
 const App = () => {
   return (
@@ -50,7 +54,7 @@ const App = () => {
         <Route path='/admin' element={<AdminDashboard/>}/>
         <Route path='/category' element={<Category/>}/>
         <Route path='/update' element={<UpdateProducts/>}/>
-        <Route path='/allEnq' element={<AllEnquires/>}/>
+        <Route path='/allEnq' element={<AllEnquiries/>}/>
         <Route path='/allorder' element={<AllOrders/>}/>
         <Route path='/allProd' element={<AllProducts/>}/>
         <Route path='/ban' element={<Banners/>}/>
