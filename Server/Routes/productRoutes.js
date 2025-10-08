@@ -6,44 +6,19 @@ import Product from "../Models/Product.js";
 
 const productRoutes = Router();
 
-// Convert buffer to base64 string
 const convertToBase64 = (buffer, mimetype) => {
   return `data:${mimetype};base64,${buffer.toString("base64")}`;
 };
 
-// ✅ Add Product
-productRoutes.post(
-  "/addProducts",
-  authenticate,
-  adminCheck,
-  upload.single("productImage"),
-  async (req, res) => {
+productRoutes.post( "/addProducts", authenticate, adminCheck, upload.single("productImage"), async (req, res) => {
     try {
-      const {
-        productName,
-        prodId,
-        categoryName,
-        material,
-        shape,
-        color,
-        application,
-        feature,
-        pattern,
-        origin,
-        reqPurchaseQty,
-        mrp,
-        discountPercent,
-        weight,
-        stockQty,
-      } = req.body;
+      const { productName, prodId, categoryName, material, shape, color, application, feature, pattern, origin, reqPurchaseQty, mrp, discountPercent, weight, stockQty, } = req.body;
 
-      // Check for existing product
       const existingProduct = await Product.findOne({ prodId });
       if (existingProduct) {
         return res.status(400).json({ message: "Product already exists!" });
       }
 
-      // Convert image to base64
       let imageBase64 = null;
       if (req.file) {
         imageBase64 = convertToBase64(req.file.buffer, req.file.mimetype);
@@ -51,7 +26,6 @@ productRoutes.post(
         return res.status(400).json({ message: "Product image is required" });
       }
 
-      // Create new product (discountedPrice will auto-calculate via schema)
       const newProduct = new Product({
         productName,
         prodId,
@@ -80,7 +54,6 @@ productRoutes.post(
   }
 );
 
-// ✅ Get Single Product by prodId
 productRoutes.get("/product/:prodId", authenticate, async (req, res) => {
   try {
     const { prodId } = req.params;
@@ -97,33 +70,11 @@ productRoutes.get("/product/:prodId", authenticate, async (req, res) => {
   }
 });
 
-// ✅ Update Product
-productRoutes.put(
-  "/productupdate/:prodId",
-  authenticate,
-  adminCheck,
-  upload.single("productImage"),
-  async (req, res) => {
+productRoutes.put( "/productupdate/:prodId", authenticate, adminCheck, upload.single("productImage"), async (req, res) => {
     try {
       const { prodId } = req.params;
-      const {
-        productName,
-        categoryName,
-        material,
-        shape,
-        color,
-        application,
-        feature,
-        pattern,
-        origin,
-        reqPurchaseQty,
-        mrp,
-        discountPercent,
-        weight,
-        stockQty,
-      } = req.body;
+      const { productName, categoryName, material, shape, color, application, feature, pattern, origin, reqPurchaseQty, mrp, discountPercent, weight, stockQty,} = req.body;
 
-      // Build update object dynamically
       const updateFields = {
         productName,
         categoryName,
@@ -158,12 +109,9 @@ productRoutes.put(
         return res.status(404).json({ message: "Product not found!" });
       }
 
-      // discountedPrice will auto-recalculate on next save trigger
       await updatedProduct.save();
 
-      res
-        .status(200)
-        .json({ message: "Product updated successfully!", product: updatedProduct });
+      res.status(200).json({ message: "Product updated successfully!", product: updatedProduct });
     } catch (error) {
       console.error("Error updating product:", error);
       res.status(500).json({ message: "Internal Server Error" });
@@ -172,11 +120,7 @@ productRoutes.put(
 );
 
 // ✅ Delete Product
-productRoutes.delete(
-  "/deleteProduct/:prodId",
-  authenticate,
-  adminCheck,
-  async (req, res) => {
+productRoutes.delete( "/deleteProduct/:prodId", authenticate,  adminCheck,  async (req, res) => {
     try {
       const { prodId } = req.params;
       const product = await Product.findOneAndDelete({ prodId });
