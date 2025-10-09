@@ -7,7 +7,6 @@ const AddProduct = () => {
     prodId: "",
     categoryName: "",
     brand: "",
-    dietaryType: "",
     material: "",
     shape: "",
     color: "",
