@@ -1,11 +1,13 @@
 import React from 'react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
+import HeroSection from '../components/HeroSection';
 
 const Homepage = () => {
   return (
     <>
     <Navbar />
+    <HeroSection />
     <section className="text-center mt-10">
         <h1 className="text-4xl font-bold text-gray-800">Welcome to DuroCap</h1>
         <p className="mt-4 text-lg text-gray-600">

@@ -9,7 +9,6 @@ import AboutPage from "./pages/AboutPage"
 import Homepage from './pages/Homepage';
 import SplashScreen from './pages/SplashScreen';
 import Products from './pages/Products'
-import BrochurePage from './pages/BrochurePage';
 
 import CartPage from "./pages/UserPages/CartPage";
 import Checkout from "./pages/UserPages/Checkout";
@@ -26,30 +25,25 @@ import Banners from './pages/AdminPages/Banners';
 import AllProducts from './pages/AdminPages/AllProducts';
 import OrderDetails from './pages/AdminPages/OrderDetails';
 import AllEnquiries from './pages/AdminPages/AllEnquiries';
-import Brochures from './pages/AdminPages/Brochures';
 import EnquiryDetails from './pages/AdminPages/EnquiryDetails';
 
 const App = () => {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path='/Splash' element={<SplashScreen/>}/>
-        <Route path='/' element={<Homepage/>}/>
+        <Route path='/' element={<SplashScreen/>}/>
+        <Route path='/home' element={<Homepage/>}/>
         <Route path='/SignUp' element={<SignUp/>}/>
-        <Route path='/SignIn' element={<SignIn/>}/>
-        
+        <Route path='/SignIn' element={<SignIn/>}/> 
         <Route path='/Products' element={<Products/>}/>
         <Route path='/about' element={<AboutPage/>}/>
         <Route path='/contact' element={<Contact/>}/>
-        <Route path='/bp' element={<BrochurePage/>}/>
         <Route path='/details' element={<DetailsPage/>}/>
-       
         <Route path='/cart' element={<CartPage/>}/>
         <Route path='/checkout' element={<Checkout/>}/>
         <Route path='/userOrders' element={<UserOrders/>}/>
         <Route path='/profile' element={<ProfilePage/>}/>
         <Route path='/singOrder' element={<SingleOrder/>}/>
-       
 
         <Route path='/add' element={<AddProduct/>}/>
         <Route path='/admin' element={<AdminDashboard/>}/>
@@ -59,7 +53,6 @@ const App = () => {
         <Route path='/allorder' element={<AllOrders/>}/>
         <Route path='/allProd' element={<AllProducts/>}/>
         <Route path='/ban' element={<Banners/>}/>
-        <Route path='/broch' element={<Brochures/>}/>
         <Route path='/enqDetails' element={<EnquiryDetails/>}/>
         <Route path='/ordDetails' element={<OrderDetails/>}/>     
       </Routes>   
