@@ -6,7 +6,7 @@ const AddProduct = () => {
     productName: "",
     prodId: "",
     categoryName: "",
-    brand: "",nj
+    brand: "",
     dietaryType: "",
     material: "",
     shape: "",
