@@ -13,33 +13,6 @@ const HeroSection = () => {
       {/* Dark overlay */}
       <div className="absolute inset-0 bg-black bg-opacity-60"></div>
 
-      {/* Navbar */}
-      <nav className="fixed top-0 left-0 w-full z-20 bg-black bg-opacity-40 backdrop-blur-md shadow-md">
-        <div className="max-w-7xl mx-auto flex justify-between items-center px-6 py-4">
-          <div className="flex items-center space-x-2">
-            <img
-              src="/images/logo.png"
-              alt="Logo"
-              className="h-10 w-10 object-contain"
-            />
-            <span className="font-bold text-xl">DuroCap Roofings</span>
-          </div>
-
-          <ul className="hidden md:flex space-x-6 text-sm uppercase font-semibold tracking-wide">
-            <li className="hover:text-blue-400 cursor-pointer">Home</li>
-            <li className="hover:text-blue-400 cursor-pointer">About Us</li>
-            <li className="hover:text-blue-400 cursor-pointer">Services</li>
-            <li className="hover:text-blue-400 cursor-pointer">Projects</li>
-            <li className="hover:text-blue-400 cursor-pointer">Gallery</li>
-            <li className="hover:text-blue-400 cursor-pointer">Contact</li>
-          </ul>
-
-          <button className="bg-red-500 hover:bg-red-600 text-white rounded-lg px-5 py-2 text-sm font-semibold transition">
-            Get a Free Estimate
-          </button>
-        </div>
-      </nav>
-
       {/* Hero Content */}
       <div className="relative flex flex-col items-center justify-center text-center flex-1 px-6 mt-24">
         <h3 className="text-sm md:text-lg font-medium uppercase mb-3 tracking-wide text-gray-300">
