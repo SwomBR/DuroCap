@@ -5,7 +5,6 @@ import adminCheck from "../Middleware/adminCheck.js";
 
 const orderRoutes = Router();
 
-
 orderRoutes.get("/viewOrders", authenticate, adminCheck, async (req, res) => {
   try {
     const orders = await Order.find()

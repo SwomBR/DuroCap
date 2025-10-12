@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 
 const CategorySection = () => {
-  // Example categories (replace these with your actual data or API fetch)
   const categories = [
     { id: 1, name: "Roof Repair", image: "/images/roof-repair.jpg" },
     { id: 2, name: "Metal Roofing", image: "/images/metal-roof.jpg" },

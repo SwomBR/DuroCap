@@ -4,10 +4,12 @@ import mongoose from 'mongoose';
 import cookieParser from "cookie-parser";
 import cors from 'cors'
 import { userAuth } from './Routes/userAuth.js';
-import  productRoutes from './Routes/productRoutes.js'
+import productRoutes from './Routes/productRoutes.js'
 import categoryRoutes from './Routes/categoryRoutes.js';
 import enquiryRoutes from './Routes/enquiryRoutes.js';
 import addressRoutes from './Routes/addresses.js';
+import cartRoutes from './Routes/cartRoutes.js'
+import orderRoutes from './Routes/OrderRoutes.js'
 
 dotenv.config();
 
@@ -26,6 +28,8 @@ app.use('/',productRoutes);
 app.use('/',categoryRoutes);
 app.use('/',enquiryRoutes);
 app.use('/',addressRoutes);
+app.use('/',cartRoutes );
+app.use('/',orderRoutes);
 
 mongoose.connect('mongodb://localhost:27017/DuroCap').then(()=>{
     console.log("Mongodb connected Successfully to DuroCap Website");})

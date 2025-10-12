@@ -2,7 +2,7 @@ import React from 'react';
 
 const StatsBanner = () => {
   const stats = [
-    { number: '10', label: 'Years of Experience' },
+    { number: '15', label: 'Years of Experience' },
     { number: '100+', label: 'Happy Customers' },
     { number: '100+', label: 'Products' },
   ];
