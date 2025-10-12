@@ -1,6 +1,6 @@
 import { Router } from "express";
-import Cart from "../Models/cart.js";
-import Product from "../Models/product.js";
+import Cart from "../Models/Cart.js";
+import Product from "../Models/Product.js";
 import authenticate from "../Middleware/auth.js";
 import userCheck from "../Middleware/userCheck.js";
 

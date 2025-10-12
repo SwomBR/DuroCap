@@ -1,5 +1,5 @@
 import { Router } from "express";
-import Order from "../Models/order.js";
+import Order from "../Models/Order.js";
 import authenticate from "../Middleware/auth.js";
 import adminCheck from "../Middleware/adminCheck.js";
 

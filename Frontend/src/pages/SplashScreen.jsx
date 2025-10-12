@@ -13,18 +13,18 @@ const SplashScreen = () => {
 
   return (
     <div
-      className="flex flex-col items-center justify-center min-h-screen text-white animate-fadeIn bg-cover bg-center bg-no-repeat"
+      className="flex flex-col items-center justify-center h-screen text-white animate-fadeIn bg-cover bg-center bg-no-repeat relative"
       style={{
-        backgroundImage: `url('/images/roof-bg.jpg')`, // ✅ Change this path to your image
+        backgroundImage: "url('/images/image1.png')",
       }}
     >
-      <div className="absolute inset-0 bg-black bg-opacity-50"></div>
 
-      <div className="relative text-center px-6">
-        <h1 className="text-4xl md:text-5xl font-extrabold tracking-wide mb-4 animate-pulse">
+      {/* Text content */}
+      <div className="relative text-center px-6 w-[900px] h-[100px] bg-white">
+        <h1 className="text-8xl md:text-5xl font-extrabold text-blue-900 tracking-wide mb-4 animate-pulse">
           DuroCap Roofing Solutions
         </h1>
-        <h2 className="text-lg md:text-xl font-medium italic opacity-90">
+        <h2 className="text-2xl md:text-xl font-medium text-blue-700 italic opacity-90">
           “Building trust, one roof at a time — reliable, durable, and affordable.”
         </h2>
       </div>
@@ -33,4 +33,3 @@ const SplashScreen = () => {
 };
 
 export default SplashScreen;
-
