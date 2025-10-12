@@ -6,7 +6,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
 const DetailsPage = () => {
-  const { id } = useParams(); // route /viewProduct/:id
+  const { id } = useParams();
   const [product, setProduct] = useState(null);
   const navigate = useNavigate();
 

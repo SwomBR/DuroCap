@@ -20,7 +20,7 @@ const SplashScreen = () => {
     >
 
       {/* Text content */}
-      <div className="relative text-center px-6 w-[900px] h-[100px] bg-white">
+      <div className="relative text-center px-6 w-[900px] h-[120px] bg-white">
         <h1 className="text-8xl md:text-5xl font-extrabold text-blue-900 tracking-wide mb-4 animate-pulse">
           DuroCap Roofing Solutions
         </h1>

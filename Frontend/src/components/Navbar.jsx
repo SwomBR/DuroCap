@@ -6,11 +6,11 @@ const Navbar = () => {
   return (
     <nav className="flex justify-between items-center bg-white shadow-md">
       <div className="flex items-center space-x-2">
-        <Link to="/home" className="flex items-center space-x-2 ml-4">
+        <Link to="/home" className="flex items-center space-x-2 ml-[200px] ">
           <img
             src={logo}
             alt="DuroCap Logo"
-            className="w-[250px] h-[70px] object-contain"
+            className="w-[250px] h-[70px]  object-contain"
           />
         </Link>
       </div>
@@ -20,25 +20,37 @@ const Navbar = () => {
           to="/home"
           className="text-black hover:text-[#00b4d8] text-xl transition duration-300"
         >
-          Home
+          HOME
         </Link>
         <Link
           to="/about"
           className="text-black hover:text-[#00b4d8] text-xl transition duration-300"
         >
-          About Us
+          ABOUT US
         </Link>
         <Link
           to="/products"
           className="text-black hover:text-[#00b4d8] text-xl transition duration-300"
         >
-          Products
+          PRODUCTS
+        </Link>
+        <Link
+          to="/services"
+          className="text-black hover:text-[#00b4d8] text-xl transition duration-300"
+        >
+          SERVICES
+        </Link>
+        <Link
+          to="/projects"
+          className="text-black hover:text-[#00b4d8] text-xl transition duration-300"
+        >
+          PROJECTS
         </Link>
         <Link
           to="/contact"
-          className="text-black hover:text-[#00b4d8] text-xl transition duration-300 mr-4"
+          className="text-black hover:text-[#00b4d8] text-xl transition duration-300 mr-[100px]"
         >
-          Contact Us
+          CONTACT US
         </Link>
       </div>
     </nav>

@@ -5,9 +5,8 @@ import HeroSection from '../components/HeroSection';
 import FeatureCards from '../components/FeatureCards';
 import StatsBanner from '../components/StatsBanner';
 import Services from '../components/Services';
-import { Phone } from 'lucide-react'; // ✅ Icon import
+import { Phone } from 'lucide-react'; 
 import CategorySection from '../components/CategorySection';
-// import EstimateImage from '../assets/estimate-illustration.png'; // ✅ Replace with actual image path
 
 const Homepage = () => {
   return (

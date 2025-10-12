@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import Navbar from "../components/Navbar";
+import Footer from "../components/Footer";
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -27,6 +29,8 @@ const Contact = () => {
   };
 
   return (
+    <>
+    <Navbar/>
     <div className="bg-gray-50 py-12 px-6 md:px-16">
       <h1 className="text-3xl font-bold text-center mb-10 text-gray-800">
         Contact Us
@@ -226,6 +230,8 @@ const Contact = () => {
         </form>
       </div>
     </div>
+    <Footer/>
+    </>
   );
 };
 

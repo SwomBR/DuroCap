@@ -8,7 +8,9 @@ import DetailsPage from "./pages/DetailsPage";
 import AboutPage from "./pages/AboutPage"
 import Homepage from './pages/Homepage';
 import SplashScreen from './pages/SplashScreen';
-import Products from './pages/Products'
+import Products from './pages/Products';
+import ServicePage from './pages/ServicePage';
+import Projects from './pages/Projects';
 
 import CartPage from "./pages/UserPages/CartPage";
 import Checkout from "./pages/UserPages/Checkout";
@@ -40,6 +42,8 @@ const App = () => {
         <Route path='/contact' element={<Contact/>}/>
         <Route path='/viewProduct/:id' element={<DetailsPage/>}/>
         <Route path='/enquiryForm' element={<EnquiryForm/>}/>
+        <Route path='/projects' element={<Projects/>}/>
+        <Route path='/services' element={<ServicePage/>}/>
 
         <Route path='/cart' element={<CartPage/>}/>
         <Route path='/checkout' element={<Checkout/>}/>

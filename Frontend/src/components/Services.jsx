@@ -1,63 +1,63 @@
-import React from 'react';
-
-const servicesData = [
-  {
-    title: 'Roofings',
-    description:
-      'A roof is the top covering of a building and a part of the building envelope.',
-    icon: '🏠',
-    link: '#', // replace with actual link
-  },
-  {
-    title: 'Fabrications',
-    description:
-      'Fabrication is the creation of metal structure. Metal is more durable and can last a long time.',
-    icon: '🛠️',
-    link: '#', // replace with actual link
-  },
-  {
-    title: 'Interiors',
-    description:
-      'The design of the decorative elements of the interior of a house or apartments.',
-    icon: '🏡',
-    link: '#', // replace with actual link
-  },
-];
+import React from "react";
+import { Hammer, Droplets, Home, Ruler, Layers } from "lucide-react";
 
 const Services = () => {
-  return (
-    <section className="py-16 bg-gray-50">
-      <div className="max-w-6xl mx-auto px-5 text-center">
-        <h2 className="text-3xl font-bold mb-4">Services We Provide</h2>
-        <p className="text-gray-600 mb-12">
-          Roofing Company in Trivandrum, AJ Roofings started off as a roofing company offering
-          all Commercial and Residential roofing installation and repair, or roof replacement
-          and coating services. As we grew and gained more experience, we added more services
-          to our portfolio.
-          <br />
-          <strong className="mt-2 block">
-            Today, we offer 3 core services – Roofing, Metal Fabrication and Interiors.
-          </strong>
-        </p>
+  const services = [
+    {
+      icon: <Ruler className="w-8 h-8 text-blue-600" />,
+      title: "Roof Design and Visualization",
+      description:
+        "We create custom 3D roof designs to help you visualize your dream roof before installation begins.",
+    },
+    {
+      icon: <Layers className="w-8 h-8 text-blue-600" />,
+      title: "Roofing Material Supply",
+      description:
+        "We provide high-quality roofing materials including tiles, shingles, and sheets from trusted brands.",
+    },
+    {
+      icon: <Hammer className="w-8 h-8 text-blue-600" />,
+      title: "Roofing Installations",
+      description:
+        "Our expert team ensures safe, durable, and precise roof installation using modern techniques.",
+    },
+    {
+      icon: <Home className="w-8 h-8 text-blue-600" />,
+      title: "Roof Maintenance",
+      description:
+        "We offer regular inspection, repair, and cleaning services to extend your roof’s lifespan.",
+    },
+    {
+      icon: <Droplets className="w-8 h-8 text-blue-600" />,
+      title: "Rain Gutter Installation",
+      description:
+        "We install durable rain gutters to protect your building from water damage and foundation issues.",
+    },
+  ];
 
-        <div className="flex flex-col md:flex-row justify-center gap-8">
-          {servicesData.map((service, index) => (
+  return (
+    <section className="py-16 bg-gray-50" id="services">
+      <div className="max-w-6xl mx-auto px-6 text-center">
+        <h2 className="text-4xl font-bold text-gray-800 mb-12">
+          Our <span className="text-blue-600">Services</span>
+        </h2>
+
+        {/* Grid with last row centered */}
+        <div className="grid md:grid-cols-3 gap-8 justify-items-center">
+          {services.map((service, index) => (
             <div
               key={index}
-              className="bg-white rounded-2xl shadow-xl p-6 text-center flex-1 hover:scale-105 transition-transform"
+              className="bg-white border border-gray-200 shadow-md rounded-3xl p-6 hover:shadow-xl hover:border-blue-500 transition-all w-full sm:w-[90%] md:w-[90%] lg:w-[85%]"
             >
-              <div className="text-red-500 text-4xl mb-4">{service.icon}</div>
-              <h3 className="font-semibold text-xl mb-2">{service.title}</h3>
-              <p className="text-gray-500 mb-4">{service.description}</p>
-              <a
-                href={service.link}
-                className="text-red-500 font-semibold hover:underline"
-              >
-                Learn More
-              </a>
+              <div className="flex justify-center mb-4">{service.icon}</div>
+              <h3 className="text-xl font-semibold text-gray-800 mb-2">
+                {service.title}
+              </h3>
+              <p className="text-gray-600 text-sm">{service.description}</p>
             </div>
           ))}
         </div>
+
       </div>
     </section>
   );
