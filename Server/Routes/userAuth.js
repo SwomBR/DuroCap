@@ -78,8 +78,12 @@ userAuth.post("/login", async (req, res) => {
 
     res.json({
       message: "Logged in successfully",
-      role: user.userRole,
       token,
+      user: {
+        name: user.name,
+        email: user.email,
+        role: user.userRole,
+      },
     });
   } catch (error) {
     console.error("Login Error:", error);
