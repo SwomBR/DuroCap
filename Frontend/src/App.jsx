@@ -28,6 +28,8 @@ import OrderDetails from './pages/AdminPages/OrderDetails';
 import AllEnquiries from './pages/AdminPages/AllEnquiries';
 import EnquiryDetails from './pages/AdminPages/EnquiryDetails';
 import EnquiryForm from './components/EnquiryForm';
+import FaqAdmin from './pages/AdminPages/FaqAdmin';
+import FAQuser from './pages/FAQuser';
 
 const App = () => {
   return (
@@ -37,13 +39,14 @@ const App = () => {
         <Route path='/home' element={<Homepage/>}/>
         <Route path='/SignUp' element={<SignUp/>}/>
         <Route path='/SignIn' element={<SignIn/>}/> 
-        <Route path='/Products' element={<Products/>}/>
+        <Route path='/products' element={<Products/>}/>
         <Route path='/about' element={<AboutPage/>}/>
         <Route path='/contact' element={<Contact/>}/>
         <Route path='/viewProduct/:id' element={<DetailsPage/>}/>
         <Route path='/enquiryForm' element={<EnquiryForm/>}/>
         <Route path='/projects' element={<Projects/>}/>
         <Route path='/services' element={<ServicePage/>}/>
+        <Route path='/faq' element={<FAQuser/>}/>
 
         <Route path='/cart' element={<CartPage/>}/>
         <Route path='/checkout' element={<Checkout/>}/>
@@ -58,8 +61,9 @@ const App = () => {
         <Route path='/allEnq' element={<AllEnquiries/>}/>
         <Route path='/allorder' element={<AllOrders/>}/>
         <Route path='/allProducts' element={<AllProducts/>}/>
-        <Route path='/enqDetails' element={<EnquiryDetails/>}/>
-        <Route path='/ordDetails' element={<OrderDetails/>}/>     
+        <Route path='/enqDetails/:id' element={<EnquiryDetails/>}/>
+        <Route path='/ordDetails' element={<OrderDetails/>}/>   
+        <Route path='/faqAdmin' element={<FaqAdmin/>}/>    
       </Routes>   
     </BrowserRouter>
   )

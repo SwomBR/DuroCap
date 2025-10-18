@@ -76,6 +76,12 @@ const AdminNavbar = () => {
             >
               <i className="fas fa-users mr-3"></i> Enquiries
             </Link>
+            <Link
+              to="/faqAdmin"
+              className="flex items-center p-2 rounded-lg text-gray-700 hover:bg-indigo-50 hover:text-indigo-600 font-medium"
+            >
+              <i className="fas fa-users mr-3"></i> FAQs
+            </Link>
           </div>
         </div>
       </div>

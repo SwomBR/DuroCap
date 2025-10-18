@@ -128,7 +128,7 @@ const Category = () => {
   return (
     <>
       <AdminNavbar />
-      <div className="bg-gray-200 ml-[250px] min-h-screen py-10 px-4">
+      <div className="bg-gray-200 ml-[280px] min-h-screen py-10 px-4">
         <div className="max-w-6xl mx-auto">
           {/* Page Title */}
           <h2 className="text-3xl font-bold text-gray-800 text-center mb-8">

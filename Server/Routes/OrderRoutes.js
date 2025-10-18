@@ -1,69 +1,144 @@
 import { Router } from "express";
 import Order from "../Models/Order.js";
-import authenticate from "../Middleware/auth.js";
-import adminCheck from "../Middleware/adminCheck.js";
+import Cart from "../Models/Cart.js";
+import authenticate from "../Middleware/auth.js"; 
+import userCheck from "../Middleware/userCheck.js";       
+import adminCheck from "../Middleware/adminCheck.js";     // ✅ Ensures only admins can access
 
 const orderRoutes = Router();
 
-orderRoutes.get("/viewOrders", authenticate, adminCheck, async (req, res) => {
+/**
+ * 🧾 Get all orders for a user
+ */
+orderRoutes.get("/allOrders/:userId", authenticate, userCheck, async (req, res) => {
+  try {
+    const orders = await Order.find({ user: req.params.userId }).populate("items.product");
+    if (!orders.length) return res.status(404).json({ message: "No orders found" });
+    res.json(orders);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+/**
+ * 🧍 Get single order by ID (User Access)
+ */
+orderRoutes.get("/orderDetails/:orderId", authenticate, userCheck, async (req, res) => {
+  try {
+    const order = await Order.findById(req.params.orderId).populate("items.product");
+    if (!order) return res.status(404).json({ message: "Order not found" });
+    res.json(order);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+/**
+ * 🛍️ Place an order from user cart
+ */
+orderRoutes.post("/placeOrder/:userId", authenticate, userCheck, async (req, res) => {
+  try {
+    const { userId } = req.params;
+    const { shippingAddress, paymentMethod, discountAmount = 0 } = req.body;
+
+    const cart = await Cart.findOne({ user: userId }).populate("items.product");
+    if (!cart || cart.items.length === 0)
+      return res.status(400).json({ message: "Cart is empty" });
+
+    const items = cart.items.map(item => ({
+      product: item.product._id,
+      quantity: item.quantity,
+      priceAtPurchase: item.priceAtAddTime,
+      totalItemPrice: item.priceAtAddTime * item.quantity,
+    }));
+
+    const totalAmount = items.reduce((sum, i) => sum + i.totalItemPrice, 0);
+    const finalAmount = totalAmount - discountAmount;
+
+    const newOrder = new Order({
+      user: userId,
+      items,
+      shippingAddress,
+      totalAmount,
+      discountAmount,
+      finalAmount,
+      paymentMethod,
+      paymentStatus: "completed",
+      orderStatus: "confirmed",
+    });
+
+    await newOrder.save();
+
+    // Clear cart after placing order
+    cart.items = [];
+    cart.totalAmount = 0;
+    await cart.save();
+
+    res.status(201).json({ message: "Order placed successfully", order: newOrder });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+/**
+ * 🚚 Update order status (Admin Only)
+ */
+orderRoutes.patch("/status/:orderId", authenticate, adminCheck, async (req, res) => {
+  try {
+    const { status } = req.body;
+    const order = await Order.findById(req.params.orderId);
+    if (!order) return res.status(404).json({ message: "Order not found" });
+
+    order.orderStatus = status;
+    await order.save();
+    res.json({ message: "Order status updated", order });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+/**
+ * 📦 Get all orders (Admin Only)
+ */
+orderRoutes.get("/admin/allOrders", authenticate, adminCheck, async (req, res) => {
   try {
     const orders = await Order.find()
-      .populate("user", "name email")
-      .populate("items.product", "name price");
-
-    res.status(200).json({
-      message: "Orders fetched successfully",
-      totalOrders: orders.length,
-      orders,
-    });
-  } catch (error) {
-    res.status(500).json({ message: "Error fetching orders", error: error.message });
+      .populate("user", "name email phone")
+      .populate("items.product");
+    if (!orders.length) return res.status(404).json({ message: "No orders found" });
+    res.json(orders);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
   }
 });
 
-
-orderRoutes.get("/admin/orders/:id", authenticate, adminCheck, async (req, res) => {
+/**
+ * 👤 Get all orders by a specific user (Admin Only)
+ */
+orderRoutes.get("/admin/userOrders/:userId", authenticate, adminCheck, async (req, res) => {
   try {
-    const order = await Order.findById(req.params.id)
-      .populate("user", "name email")
-      .populate("items.product", "name price");
-
-    if (!order) {
-      return res.status(404).json({ message: "Order not found" });
-    }
-
-    res.status(200).json(order);
-  } catch (error) {
-    res.status(500).json({ message: "Error fetching order", error: error.message });
+    const orders = await Order.find({ user: req.params.userId })
+      .populate("items.product")
+      .populate("user", "name email");
+    if (!orders.length) return res.status(404).json({ message: "No orders found for this user" });
+    res.json(orders);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
   }
 });
 
-
-orderRoutes.put("/admin/orders/:id/status", authenticate, adminCheck, async (req, res) => {
+/**
+ * 🔍 Get order details by ID (Admin Only)
+ */
+orderRoutes.get("/admin/orderDetails/:orderId", authenticate, adminCheck, async (req, res) => {
   try {
-    const { orderStatus, paymentStatus } = req.body;
-
-    const allowedOrderStatuses = ["Processing", "Shipped", "Delivered", "Cancelled"];
-    const allowedPaymentStatuses = ["Pending", "Paid", "Failed"];
-
-    const order = await Order.findById(req.params.id);
-    if (!order) {
-      return res.status(404).json({ message: "Order not found" });
-    }
-
-    if (orderStatus && allowedOrderStatuses.includes(orderStatus)) {
-      order.orderStatus = orderStatus;
-    }
-
-    if (paymentStatus && allowedPaymentStatuses.includes(paymentStatus)) {
-      order.paymentStatus = paymentStatus;
-    }
-
-    await order.save();
-
-    res.status(200).json({ message: "Order status updated successfully", order });
-  } catch (error) {
-    res.status(500).json({ message: "Error updating order status", error: error.message });
+    const order = await Order.findById(req.params.orderId)
+      .populate("items.product")
+      .populate("user", "name email phone");
+    if (!order) return res.status(404).json({ message: "Order not found" });
+    res.json(order);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
   }
 });
 

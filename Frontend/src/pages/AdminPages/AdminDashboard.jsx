@@ -8,8 +8,8 @@ const AdminDashboard = () => {
     <div className="flex min-h-screen bg-gray-100 font-poppins">     
       <div className="flex-1 ml-64 bg-white flex flex-col items-center p-10 w-full"> 
         {/* Welcome text */}
-        <p className="text-5xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-indigo-500 to-purple-600 drop-shadow-lg animate-fade-in text-center mt-[200px]">
-          Welcome to Admin Dashboard
+        <p className="text-6xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-indigo-500 to-purple-600 drop-shadow-lg animate-fade-in text-center mt-[200px]">
+          Welcome to <br/>DuroCap Roofing Solutions <br/> Admin Dashboard
         </p>
       </div>
     </div>

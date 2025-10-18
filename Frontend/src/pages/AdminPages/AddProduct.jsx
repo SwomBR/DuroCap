@@ -204,7 +204,7 @@ const AddProduct = () => {
   return (
     <>
       <AdminNavbar />
-      <div className="max-w-5xl mx-auto py-6 px-4 bg-white min-h-screen">
+      <div className="max-w-5xl ml-[500px] py-6 px-4 bg-white min-h-screen">
         <h2 className="text-3xl font-bold text-gray-800 mb-6 text-center">Add New Product</h2>
 
         <form onSubmit={handleSubmit} encType="multipart/form-data">

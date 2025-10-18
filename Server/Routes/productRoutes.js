@@ -15,7 +15,7 @@ productRoutes.post(
   "/addProducts",
   authenticate,
   adminCheck,
-  upload.array("productImages", 5), // allow up to 5 images
+  upload.array("productImages", 5), 
   async (req, res) => {
     try {
       const { productName, prodId, category, material, shape, color, application, feature, pattern, origin, moq, mrp, discountPercent, weight, stockQty, size, thickness, battenDistance, coverage, breakStrength, description, waterAbsorb, model, usage, qtyPerSqFt, type,

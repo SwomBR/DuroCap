@@ -1,4 +1,4 @@
-import { Router }from "express";
+import { Router } from "express";
 import Enquiry from "../Models/Enquiry.js";
 import authenticate from "../Middleware/auth.js";
 import adminCheck from "../Middleware/adminCheck.js";
@@ -6,16 +6,17 @@ import userCheck from "../Middleware/userCheck.js";
 
 const enquiryRoutes = Router();
 
+// Add Enquiry
 enquiryRoutes.post("/addEnquiry", authenticate, userCheck, async (req, res) => {
   try {
-    const { productService, name, email, country, phone, message } = req.body;
+    const { enquiryType, name, email, country, phone, message } = req.body;
 
-    if (!productService || !name || !email || !country || !phone || !message) {
+    if (!enquiryType || !name || !email || !country || !phone || !message) {
       return res.status(400).json({ message: "All fields are required." });
     }
 
     const newEnquiry = new Enquiry({
-      productService,
+      enquiryType,
       name,
       email,
       country,
@@ -30,6 +31,7 @@ enquiryRoutes.post("/addEnquiry", authenticate, userCheck, async (req, res) => {
   }
 });
 
+// View All Enquiries (Admin)
 enquiryRoutes.get("/viewAllEnquiries", authenticate, adminCheck, async (req, res) => {
   try {
     const enquiries = await Enquiry.find().sort({ createdAt: -1 });
@@ -39,7 +41,8 @@ enquiryRoutes.get("/viewAllEnquiries", authenticate, adminCheck, async (req, res
   }
 });
 
-enquiryRoutes.get("/viewEnquiries/:id", authenticate, adminCheck, async (req, res) => {
+// View Single Enquiry (Admin)
+enquiryRoutes.get("/viewEnquiry/:id", authenticate, adminCheck, async (req, res) => {
   try {
     const { id } = req.params;
     const enquiry = await Enquiry.findById(id);
@@ -51,6 +54,20 @@ enquiryRoutes.get("/viewEnquiries/:id", authenticate, adminCheck, async (req, re
     res.status(200).json(enquiry);
   } catch (error) {
     res.status(500).json({ message: "Error fetching enquiry.", error: error.message });
+  }
+});
+
+enquiryRoutes.patch("/markAsViewed/:id", authenticate, adminCheck, async (req, res) => {
+  try {
+    const enquiry = await Enquiry.findByIdAndUpdate(
+      req.params.id,
+      { viewed: true },
+      { new: true }
+    );
+    if (!enquiry) return res.status(404).json({ message: "Enquiry not found." });
+    res.status(200).json({ message: "Enquiry marked as viewed", enquiry });
+  } catch (error) {
+    res.status(500).json({ message: "Error updating enquiry.", error: error.message });
   }
 });
 

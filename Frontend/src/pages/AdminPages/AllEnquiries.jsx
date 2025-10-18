@@ -3,16 +3,25 @@ import { useNavigate } from "react-router-dom";
 
 const AllEnquiries = () => {
   const [enquiries, setEnquiries] = useState([]);
+  const [filteredEnquiries, setFilteredEnquiries] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [filterType, setFilterType] = useState("all");
   const navigate = useNavigate();
 
   const fetchEnquiries = async () => {
     try {
-      const res = await fetch("/api/viewAllEnquiries", {
-        headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+      const res = await fetch("http://localhost:8000/viewAllEnquiries", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
       });
+
+      if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
       const data = await res.json();
       setEnquiries(data);
+      setFilteredEnquiries(data);
     } catch (err) {
       console.error("Error fetching enquiries:", err);
     } finally {
@@ -24,14 +33,66 @@ const AllEnquiries = () => {
     fetchEnquiries();
   }, []);
 
-  if (loading) return <div className="p-6 text-lg font-semibold">Loading enquiries...</div>;
+  // Filter logic (Type only)
+  useEffect(() => {
+    let filtered = enquiries;
+    if (filterType !== "all") {
+      filtered = filtered.filter(
+        (e) => e.enquiryType?.toLowerCase() === filterType.toLowerCase()
+      );
+    }
+    setFilteredEnquiries(filtered);
+  }, [filterType, enquiries]);
+
+  // Handle view + mark as viewed
+  const handleView = async (id) => {
+    try {
+      // Mark enquiry as viewed (no disable logic)
+      await fetch(`http://localhost:8000/markAsViewed/${id}`, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      });
+
+      // Update local state immediately
+      setEnquiries((prev) =>
+        prev.map((e) => (e._id === id ? { ...e, viewed: true } : e))
+      );
+
+      // Navigate to details page
+      navigate(`/enquiries/${id}`);
+    } catch (err) {
+      console.error("Error marking enquiry as viewed:", err);
+    }
+  };
+
+  if (loading) {
+    return <div className="p-6 text-lg font-semibold">Loading enquiries...</div>;
+  }
 
   return (
-    <div className="p-6 max-w-6xl mx-auto">
+    <div className="p-6 max-w-7xl mx-auto">
       <h2 className="text-2xl font-bold mb-6 text-gray-800">All Enquiries</h2>
 
-      {enquiries.length === 0 ? (
-        <p className="text-gray-500">No enquiries found.</p>
+      {/* Filters */}
+      <div className="flex flex-wrap gap-4 mb-6">
+        <select
+          className="border border-gray-300 rounded-md px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:outline-none"
+          value={filterType}
+          onChange={(e) => setFilterType(e.target.value)}
+        >
+          <option value="all">All Types</option>
+          <option value="product related">Product Related</option>
+          <option value="service related">Service Related</option>
+          <option value="estimation">Estimation</option>
+        </select>
+      </div>
+
+      {/* Enquiry Table */}
+      {filteredEnquiries.length === 0 ? (
+        <p className="text-gray-500">No enquiries found for the selected filters.</p>
       ) : (
         <div className="overflow-x-auto">
           <table className="min-w-full bg-white shadow-md rounded-lg">
@@ -40,23 +101,39 @@ const AllEnquiries = () => {
                 <th className="py-2 px-4 border-b text-left">Name</th>
                 <th className="py-2 px-4 border-b text-left">Email</th>
                 <th className="py-2 px-4 border-b text-left">Phone</th>
-                <th className="py-2 px-4 border-b text-left">Product/Service</th>
                 <th className="py-2 px-4 border-b text-left">Country</th>
+                <th className="py-2 px-4 border-b text-left">Type</th>
+                <th className="py-2 px-4 border-b text-left">Message</th>
+                <th className="py-2 px-4 border-b text-left">Date</th>
+                <th className="py-2 px-4 border-b text-left">Status</th>
                 <th className="py-2 px-4 border-b text-left">Actions</th>
               </tr>
             </thead>
             <tbody>
-              {enquiries.map((enquiry) => (
+              {filteredEnquiries.map((enquiry) => (
                 <tr key={enquiry._id} className="border-b hover:bg-gray-50">
                   <td className="py-2 px-4">{enquiry.name}</td>
                   <td className="py-2 px-4">{enquiry.email}</td>
                   <td className="py-2 px-4">{enquiry.phone}</td>
-                  <td className="py-2 px-4">{enquiry.productService}</td>
                   <td className="py-2 px-4">{enquiry.country}</td>
+                  <td className="py-2 px-4">{enquiry.enquiryType}</td>
+                  <td className="py-2 px-4 truncate max-w-xs" title={enquiry.message}>
+                    {enquiry.message.slice(0, 40)}...
+                  </td>
+                  <td className="py-2 px-4">
+                    {new Date(enquiry.createdAt).toLocaleDateString()}
+                  </td>
+                  <td className="py-2 px-4">
+                    {enquiry.viewed ? (
+                      <span className="text-green-600 font-semibold">Viewed</span>
+                    ) : (
+                      <span className="text-red-500 font-semibold">New</span>
+                    )}
+                  </td>
                   <td className="py-2 px-4">
                     <button
-                      onClick={() => navigate(`/enquiries/${enquiry._id}`)}
-                      className="bg-blue-600 text-white px-3 py-1 rounded hover:bg-blue-700"
+                      onClick={() => handleView(enquiry._id)}
+                      className="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded"
                     >
                       View
                     </button>
