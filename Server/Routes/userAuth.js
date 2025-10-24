@@ -7,6 +7,7 @@ import User from "../Models/User.js";
 dotenv.config();
 
 const userAuth = Router();
+
 const ADMIN_EMAILS = (process.env.ADMIN_EMAILS || "").split(",").map(e => e.trim());
 
 userAuth.post("/register", async (req, res) => {
