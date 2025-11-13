@@ -22,7 +22,7 @@ const Category = () => {
   const fetchCategories = async () => {
     setLoading(true);
     try {
-      const res = await axios.get("http://127.0.0.1:8000/allCategories");
+      const res = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/allCategories`);
       setCategories(res.data);
     } catch (err) {
       console.error("Error fetching categories:", err);
@@ -57,7 +57,7 @@ const Category = () => {
 
       if (editMode) {
         await axios.put(
-          `http://127.0.0.1:8000/updateCategories/${editCategoryId}`,
+          `${import.meta.env.VITE_BACKEND_URL}/updateCategories/${editCategoryId}`,
           data,
           {
             headers: {
@@ -68,7 +68,7 @@ const Category = () => {
         );
         alert("Category updated successfully!");
       } else {
-        await axios.post("http://127.0.0.1:8000/addCategories", data, {
+        await axios.post(`${import.meta.env.VITE_BACKEND_URL}/addCategories`, data, {
           headers: {
             "Content-Type": "multipart/form-data",
             Authorization: `Bearer ${token}`,
@@ -105,7 +105,7 @@ const Category = () => {
       return;
     try {
       const token = localStorage.getItem("token");
-      await axios.delete(`http://127.0.0.1:8000/deleteCategories/${id}`, {
+      await axios.delete(`${import.meta.env.VITE_BACKEND_URL}/deleteCategories/${id}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       alert("Category deleted successfully!");
