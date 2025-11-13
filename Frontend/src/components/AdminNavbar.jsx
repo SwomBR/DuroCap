@@ -7,7 +7,7 @@ const AdminNavbar = () => {
 
   const handleLogout = async () => {
     try {
-      await axios.get("http://localhost:8000/logout", {
+      await axios.get(`${import.meta.env.VITE_BACKEND_URL}/logout`, {
         withCredentials: true,
       });
 

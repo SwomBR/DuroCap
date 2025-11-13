@@ -33,11 +33,19 @@ app.use('/',cartRoutes );
 app.use('/',orderRoutes);
 app.use('/',faqRoutes);
 
-mongoose.connect('mongodb://localhost:27017/DuroCap').then(()=>{
-    console.log("Mongodb connected Successfully to DuroCap Website");})
-    .catch((error)=>{
-        console.error("Mongodb connection failed",error);
-})
+const mongoURI = process.env.MONGO_URI;
+
+mongoose
+  .connect(mongoURI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  })
+  .then(() => {
+    console.log("✅ MongoDB connected successfully to DuroCap Website");
+  })
+  .catch((error) => {
+    console.error("❌ MongoDB connection failed:", error.message);
+  });
 
 app.listen(process.env.PORT,function(){
     console.log(`server is listening at ${process.env.PORT}`);

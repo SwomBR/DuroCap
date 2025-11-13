@@ -11,7 +11,7 @@ const EnquiryDetails = () => {
   useEffect(() => {
     const fetchEnquiry = async () => {
       try {
-        const res = await fetch(`http://localhost:8000/viewEnquiry/${id}`, {
+        const res = await fetch(`${import.meta.env.VITE_BACKEND_URL}/viewEnquiry/${id}`, {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
           },

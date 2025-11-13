@@ -11,7 +11,7 @@ const AllEnquiries = () => {
 
   const fetchEnquiries = async () => {
     try {
-      const res = await fetch("http://localhost:8000/viewAllEnquiries", {
+      const res = await fetch(`${import.meta.env.VITE_BACKEND_URL}/viewAllEnquiries`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -46,7 +46,7 @@ const AllEnquiries = () => {
 
    const handleView = async (id) => {
     try {
-       await fetch(`http://localhost:8000/markAsViewed/${id}`, {
+       await fetch(`${import.meta.env.VITE_BACKEND_URL}/markAsViewed/${id}`, {
         method: "PATCH",
         headers: {
           "Content-Type": "application/json",

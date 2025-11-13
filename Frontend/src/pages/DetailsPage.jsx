@@ -19,7 +19,7 @@ const DetailsPage = () => {
     const fetchProduct = async () => {
       try {
         const token = localStorage.getItem("token");
-        const res = await axios.get(`http://localhost:8000/viewproduct/${id}`, {
+        const res = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/viewproduct/${id}`, {
           headers: { Authorization: `Bearer ${token}` },
         });
         setProduct(res.data);
@@ -102,7 +102,7 @@ const DetailsPage = () => {
       const token = localStorage.getItem("token");
       if (!token) return setMessage("Please log in to add items to your cart.");
       const res = await axios.post(
-        "http://localhost:8000/cart/add",
+        `${import.meta.env.VITE_BACKEND_URL}/cart/add`,
         { productId: product._id, quantity: qty },
         { headers: { Authorization: `Bearer ${token}` } }
       );

@@ -16,7 +16,7 @@ const AllProducts = () => {
   
   const fetchProducts = async () => {
     try {
-      const res = await axios.get("http://localhost:8000/allproducts", {
+      const res = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/allproducts`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       const data = res.data;
@@ -43,7 +43,7 @@ const AllProducts = () => {
    const handleDelete = async (prodId) => {
     if (!window.confirm("Are you sure you want to delete this product?")) return;
     try {
-      await axios.delete(`http://localhost:8000/deleteProduct/${prodId}`, {
+      await axios.delete(`${import.meta.env.VITE_BACKEND_URL}/deleteProduct/${prodId}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       alert("Product deleted successfully!");

@@ -23,7 +23,7 @@ const Contact = () => {
     try {
       // Replace with your backend endpoint
       const response = await axios.post(
-        "http://localhost:8000/addEnquiry",
+        `${import.meta.env.VITE_BACKEND_URL}/addEnquiry`,
         formData,
         {
           headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
